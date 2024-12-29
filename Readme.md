@@ -56,29 +56,29 @@ training_args = Seq2SeqTrainingArguments(
 )
 ```
 
-#Key Hyperparameters
+# Key Hyperparameters
 
-##Learning Rate (learning_rate):
+## Learning Rate (learning_rate):
 Determines how quickly the model updates weights during training. A smaller value (e.g., 1e-5) prevents overshooting the optimal solution, ensuring stable convergence.
 
-##Warmup Steps (warmup_steps):
+## Warmup Steps (warmup_steps):
 Gradually increases the learning rate from 0 to the defined value during these steps. Helps the model stabilize in the initial stages of training.
 
-##Max Steps (max_steps):
+## Max Steps (max_steps):
 The total number of training steps. For large datasets or complex models, more steps (e.g., 2000) are needed for convergence.
 
-##Batch Size and Gradient Accumulation:
+## Batch Size and Gradient Accumulation:
 Determines how many samples are processed in one pass. Larger batch sizes require more GPU memory.
 Gradient accumulation allows simulating larger batch sizes by accumulating gradients over multiple smaller batches.
 
 Experimenting with these hyperparameters played a crucial role in achieving optimal performance. Specifically, the learning rate and warmup steps were adjusted iteratively to balance convergence speed and stability.
 
-#English Model Performance
+# English Model Performance
 The Whisper English model, without fine-tuning, performed exceptionally on Republic TV audio, achieving 99% accuracy. Its ability to insert punctuation enhances the readability of transcripts, making it suitable for real-world applications.
 
-#Usage
+# Usage
 
-##Dependencies
+## Dependencies
 Install the required libraries:
 
 ```python
@@ -105,7 +105,7 @@ print("Transcription:", transcribe(audio_file))
 
 ```
 
-#References
+# References
 
 Hugging Face Transformers
 Whisper Model
