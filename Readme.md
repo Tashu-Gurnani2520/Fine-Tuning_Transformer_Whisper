@@ -7,11 +7,12 @@
 
 This project demonstrates the significant improvement achieved by fine-tuning the Whisper model:
 
-| **Model**              | **WER (Word Error Rate)** | **Dataset**              | **Notes**                                          |                        |
-| Whisper (Small)        | 34%                      | Common Voice             | Fine-tuned for 1000 steps                        |
-| Whisper (Small)        | 32%                      | Common Voice             | Fine-tuned for 2000 steps                        |
-| Whisper (Medium)       | 20%                      | Google Fleurs Dataset    | Fine-tuned for 1000 steps                        |
-| Whisper (English)      | 1%                       | Republic TV Audio        | Performed exceptionally without fine-tuning      |
+| **Model**            | **WER (Word Error Rate)** | **Dataset**             | **Notes**                                           |
+|----------------------|---------------------------|-------------------------|-----------------------------------------------------|
+| **Whisper (Small)**   | 34%                       | Common Voice            | Fine-tuned for 1000 steps                           |
+| **Whisper (Small)**   | 32%                       | Common Voice            | Fine-tuned for 2000 steps                           |
+| **Whisper (Medium)**  | 20%                       | Google Fleurs Dataset   | Fine-tuned for 1000 steps                           |
+| **Whisper (English)** | 1%                        | Republic TV Audio       | Performed exceptionally without fine-tuning         |
 
 ## About Whisper
 
