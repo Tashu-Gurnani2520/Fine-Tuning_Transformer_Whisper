@@ -1,41 +1,36 @@
-Whisper Fine-Tuning for Automatic Speech Recognition (ASR)
+# Whisper Fine-Tuning for Automatic Speech Recognition (ASR)
 
-Whisper is an open-source, pre-trained Transformer-based encoder-decoder model developed for automatic speech recognition (ASR) and speech translation. This project focuses on fine-tuning Whisper for Hindi language transcription and experimenting with its capabilities for English transcription.
+**Whisper** is an open-source, pre-trained Transformer-based encoder-decoder model developed for automatic speech recognition (ASR) and speech translation. This project focuses on fine-tuning Whisper for Hindi language transcription and experimenting with its capabilities for English transcription.
 
-Summary of Results
+
+## Summary of Results
+
 This project demonstrates the significant improvement achieved by fine-tuning the Whisper model:
 
+| **Model**              | **WER (Word Error Rate)** | **Dataset**              | **Notes**                                          |
+|------------------------|---------------------------|--------------------------|--------------------------------------------------|                           |
+| Whisper (Small)        | 34%                      | Common Voice             | Fine-tuned for 1000 steps                        |
+| Whisper (Small)        | 32%                      | Common Voice             | Fine-tuned for 2000 steps                        |
+| Whisper (Medium)       | 20%                      | Google Fleurs Dataset    | Fine-tuned for 1000 steps                        |
+| Whisper (English)      | 1%                       | Republic TV Audio        | Performed exceptionally without fine-tuning      |
 
-#### 3. **Tables**
-Tables are supported using pipes (`|`) and dashes (`-`):
-```markdown
-| Model              | WER (%) | Dataset              |
-|--------------------|---------|----------------------|
-| Whisper (Small)    | 65      | Hindi Dataset        |
-| Whisper (Medium)   | 20      | Google Fleurs Dataset |
+## About Whisper
 
+Whisper is an open-source, sequence-to-sequence model based on the **Transformer architecture**. It was pre-trained on **680k hours of labeled speech data** using large-scale weak supervision, enabling robust ASR performance across multiple languages.
 
-Model	WER (Word Error Rate)	Dataset	Notes
-Ai4 Bharat Indic Wav2Vec	60%	Hindi Dataset	Initial test results
-Whisper (Small)	65%	Hindi Dataset	Without fine-tuning
-Whisper (Small)	34%	Common Voice	Fine-tuned for 1000 steps
-Whisper (Small)	32%	Common Voice	Fine-tuned for 2000 steps
-Whisper (Medium)	20%	Google Fleurs Dataset	Fine-tuned for 1000 steps
-Whisper (English)	1%	Republic TV Audio	Performed exceptionally without fine-tuning
-About Whisper
-Whisper is an open-source, sequence-to-sequence model based on the Transformer architecture. It was pre-trained on 680k hours of labeled speech data using large-scale weak supervision, enabling robust ASR performance across multiple languages.
+The model is available in different sizes (**tiny**, **small**, **medium**, **large**), balancing performance and computational requirements. This project utilized the **small** and **medium** models, fine-tuning them for Hindi speech recognition.
 
-The model is available in different sizes (tiny, small, medium, large), balancing performance and computational requirements. This project utilized the small and medium models, fine-tuning them for Hindi speech recognition.
+## Fine-Tuning Process
 
-Fine-Tuning Process
-Dataset Selection
-Common Voice Dataset: Used for initial fine-tuning (WER reduced to 32%).
-Google Fleurs Dataset: A more robust dataset for Hindi, reducing WER to 20% after 1000 steps.
-Hyperparameter Tuning
-Fine-tuning was conducted using the transformers library. The hyperparameters were optimized for training on a GPU P100 provided by Kaggle.
+### Dataset Selection
+- **Common Voice Dataset**: Used for initial fine-tuning (WER reduced to 32%).
+- **Google Fleurs Dataset**: A more robust dataset for Hindi, reducing WER to **20%** after 1000 steps.
 
-python
-Copy code
+### Hyperparameter Tuning
+
+Fine-tuning was conducted using the **Transformers** library. The hyperparameters were optimized for training on a **GPU P100** provided by Kaggle.
+
+```python
 from transformers import Seq2SeqTrainingArguments
 
 training_args = Seq2SeqTrainingArguments(
@@ -60,57 +55,55 @@ training_args = Seq2SeqTrainingArguments(
     greater_is_better=False,  
     push_to_hub=True,  
 )
-Key Hyperparameters
-Learning Rate (learning_rate):
 
-Determines how quickly the model updates weights during training.
-A smaller value (e.g., 1e-5) prevents overshooting the optimal solution, ensuring stable convergence.
-Warmup Steps (warmup_steps):
+#Key Hyperparameters
 
-Gradually increases the learning rate from 0 to the defined value during these steps.
-Helps the model stabilize in the initial stages of training.
-Max Steps (max_steps):
+##Learning Rate (learning_rate):
+Determines how quickly the model updates weights during training. A smaller value (e.g., 1e-5) prevents overshooting the optimal solution, ensuring stable convergence.
 
-The total number of training steps.
-For large datasets or complex models, more steps (e.g., 2000) are needed for convergence.
-Batch Size and Gradient Accumulation:
+##Warmup Steps (warmup_steps):
+Gradually increases the learning rate from 0 to the defined value during these steps. Helps the model stabilize in the initial stages of training.
 
+##Max Steps (max_steps):
+The total number of training steps. For large datasets or complex models, more steps (e.g., 2000) are needed for convergence.
+
+##Batch Size and Gradient Accumulation:
 Determines how many samples are processed in one pass. Larger batch sizes require more GPU memory.
 Gradient accumulation allows simulating larger batch sizes by accumulating gradients over multiple smaller batches.
-Experimentation
-Experimenting with these hyperparameters played a crucial role in achieving optimal performance. Specifically, the learning rate and warmup steps were adjusted iteratively to balance convergence speed and stability. The fine-tuning process also incorporated gradient checkpointing and mixed precision training (fp16) to efficiently utilize GPU memory.
 
-English Model Performance
+Experimenting with these hyperparameters played a crucial role in achieving optimal performance. Specifically, the learning rate and warmup steps were adjusted iteratively to balance convergence speed and stability.
+
+#English Model Performance
 The Whisper English model, without fine-tuning, performed exceptionally on Republic TV audio, achieving 99% accuracy. Its ability to insert punctuation enhances the readability of transcripts, making it suitable for real-world applications.
 
-Usage
-Dependencies
+#Usage
+
+##Dependencies
 Install the required libraries:
 
-bash
-Copy code
+```python
 pip install transformers datasets torchaudio
-Fine-Tuning
-Run the fine-tuning script:
 
-bash
-Copy code
-python train_whisper.py
-Inference
-Generate transcriptions using the fine-tuned model:
+## Code for Transcription
 
-python
-Copy code
+Here’s how to use the fine-tuned model:
+
+```python
 from transformers import pipeline
 
-asr = pipeline("automatic-speech-recognition", model="path_to_your_model")
-result = asr("path_to_audio_file")
-print(result)
-Future Work
-Extend fine-tuning to other Indian languages using datasets like Fleurs.
-Explore larger versions of Whisper (large model) for improved accuracy.
-Deploy the model as a FastAPI web service for real-time transcription.
-References
+# Load the model
+pipe = pipeline(model="Tashuu/whisper-medium-hindi")
+
+# Transcribe audio
+def transcribe(file_path):
+    text = pipe(file_path)["text"]
+    return text
+
+audio_file = "path_to_audio_file.wav"
+print("Transcription:", transcribe(audio_file))
+
+#References
+
 Hugging Face Transformers
 Whisper Model
 Google Fleurs Dataset
