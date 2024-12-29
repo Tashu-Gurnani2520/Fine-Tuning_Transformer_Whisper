@@ -7,8 +7,7 @@
 
 This project demonstrates the significant improvement achieved by fine-tuning the Whisper model:
 
-| **Model**              | **WER (Word Error Rate)** | **Dataset**              | **Notes**                                          |
-|------------------------|---------------------------|--------------------------|--------------------------------------------------|                           |
+| **Model**              | **WER (Word Error Rate)** | **Dataset**              | **Notes**                                          |                        |
 | Whisper (Small)        | 34%                      | Common Voice             | Fine-tuned for 1000 steps                        |
 | Whisper (Small)        | 32%                      | Common Voice             | Fine-tuned for 2000 steps                        |
 | Whisper (Medium)       | 20%                      | Google Fleurs Dataset    | Fine-tuned for 1000 steps                        |
@@ -55,6 +54,7 @@ training_args = Seq2SeqTrainingArguments(
     greater_is_better=False,  
     push_to_hub=True,  
 )
+```
 
 #Key Hyperparameters
 
@@ -83,6 +83,7 @@ Install the required libraries:
 
 ```python
 pip install transformers datasets torchaudio
+```
 
 ## Code for Transcription
 
@@ -101,6 +102,8 @@ def transcribe(file_path):
 
 audio_file = "path_to_audio_file.wav"
 print("Transcription:", transcribe(audio_file))
+
+```
 
 #References
 
