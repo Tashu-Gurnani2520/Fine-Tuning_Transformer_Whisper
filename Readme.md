@@ -5,6 +5,16 @@ Whisper is an open-source, pre-trained Transformer-based encoder-decoder model d
 Summary of Results
 This project demonstrates the significant improvement achieved by fine-tuning the Whisper model:
 
+
+#### 3. **Tables**
+Tables are supported using pipes (`|`) and dashes (`-`):
+```markdown
+| Model              | WER (%) | Dataset              |
+|--------------------|---------|----------------------|
+| Whisper (Small)    | 65      | Hindi Dataset        |
+| Whisper (Medium)   | 20      | Google Fleurs Dataset |
+
+
 Model	WER (Word Error Rate)	Dataset	Notes
 Ai4 Bharat Indic Wav2Vec	60%	Hindi Dataset	Initial test results
 Whisper (Small)	65%	Hindi Dataset	Without fine-tuning
