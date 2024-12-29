@@ -94,7 +94,7 @@ Here’s how to use the fine-tuned model:
 from transformers import pipeline
 
 # Load the model
-pipe = pipeline(model="Tashuu/whisper-medium-hindi")
+pipe = pipeline(model="model_path")
 
 # Transcribe audio
 def transcribe(file_path):
